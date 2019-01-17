@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>在线购物网管理中心</title>
+        <!-- 引入jQuery文件 -->
+        <script type="application/javascript" src="../src/jquery-1.11.1.js"></script>
+        <style>
+            .search{
+                width: 50px;
+                height: 25px;
+                border-radius: 5px;
+                border: 1px solid red;
+            }
+            .text{
+                width: 60px;
+                margin-left: -230px;
+            }
+        </style>
+    </head>
+
+    <script>
+        function searchID(){
+            console.log("进入方法");
+            var str = $(".input").val();
+            if(str == '' || str == undefined || str == null){
+                alert("ID禁止为空！");
+            }else{
+                $.ajax({
+                    type: "POST",
+                    url: "user/showUser.do-"+$(".input").val(),
+                    header:"application/x-www-form-urlencoded",
+                    dataType:"json",
+                    // contentType:"application/json",
+                    success: function(data){
+                        if(data == null || data == '' || data == 'null'){
+                            alert("数据为空");
+                        }else{
+                            //document.getElementById("test").innerHTML = data;
+                            console.log(data.username);
+                            alert(data.username);
+                        }
+                        console.log("DATA:"+data);
+                    },
+                    error:function (data) {
+                        console.log("错误："+data);
+                    }
+                });
+            }
+
+        };
+    </script>
+
+    <body>
+        请输入ID：
+        <input type="number" class="input" />
+        <button onclick="searchID()" class="search" name="搜索" /><br/>
+        <p class="text">查询结果：</p><br/>
+        <p id="test"></p>
+    </body>
+</html>

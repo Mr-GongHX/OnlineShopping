@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>欢迎使用在线购物网管理系统</title>
+		<!-- 引入CSS -->
+		<link rel="stylesheet" href="../src/css/login.css">
+		<link rel="stylesheet" href="../src/css/login-1.css">
+	</head>
+
+	<body>
+		<!-- 头部 START -->
+		<div class="top">
+			<p>欢迎使用在线购物网管理系统</p>
+		</div>
+		<!-- 头部 END -->
+
+		<!-- FORM表单 START -->
+		<div class="login">
+			<h1>登录</h1>
+			<form action="login.do" method="POST">
+				<input class="input" type="text" name="username" placeholder="用户名" required="required" />
+				<input class="input" type="password" name="password" placeholder="密码" required="required" />
+				<table>
+					<td colspan="2">
+						<input value="admin" name="role" type="radio" id="admin" required="required" />
+						<span>管理员</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<input value="business" name="role" type="radio" id="business" required="required" style="margin-left:1px;" />
+						<span>商家</span>
+					</td>
+				</table>
+				<button type="submit" class="btn btn-primary btn-block btn-large">登录</button>
+			</form>
+		</div>
+		<!-- FORM表单 END -->
+
+		<!-- 版权 START -->
+		<div class="copyright">
+			<span>©2019&nbsp;GongHaoxin&nbsp;&nbsp;&nbsp;&nbsp;版权所有&nbsp;保留一切权利</span>
+		</div>
+		<!-- 版权 END -->
+	</body>
+</html>
