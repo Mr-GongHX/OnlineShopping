@@ -17,12 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 在线购物网登录类(管理员，商家，用户)
- * @Author GongHaoxin
- * @Date ${Date} ${Time}
+ * @Author Gong Haoxin
+ * @CreateTime 2019-02-12 19:16:40
  */
 
 @Controller
-@RequestMapping("/login.do")
 public class LoginController {
 
     @Resource
@@ -31,30 +30,30 @@ public class LoginController {
     private UserService userService;
 
     //管理员登录
-    @RequestMapping("?username={username}&password={password}&role=admin")
-    public void adminLogin(HttpServletRequest request, HttpServletResponse response,
-                      Model model, @PathVariable String username,
-                      @PathVariable String password, @PathVariable String role){
-        Administrator admin = adminService.checkLogin(username, password);
-        System.out.println("管理员登录" + admin.toString());
+    @RequestMapping("/adminLogin.do")
+    public String adminLogin(HttpServletRequest request){
+        System.out.println("into");
+        System.out.println(request.getParameter("username") + ","+ request.getParameter("password"));
+        return "test";
+//        Administrator admin = adminService.checkLogin(username, password);
 
     }
 
     //商家登录
-    @RequestMapping("?username={username}&password={password}&role=business")
+    @RequestMapping("/shopLogin.do")
     public void businessLogin(HttpServletRequest request, HttpServletResponse response,
                       Model model, @PathVariable String username,
-                      @PathVariable String password, @PathVariable String role){
+                      @PathVariable String password){
         Business business = this.businessService.showBusiness(username, password);
         System.out.println("管理员登录" + business.toString());
 
     }
 
     //用户登录
-    @RequestMapping("?username={username}&password={password}-role=user")
+    @RequestMapping("/userLogin.do")
     public void userLogin(HttpServletRequest request, HttpServletResponse response,
                               Model model, @PathVariable String username,
-                              @PathVariable String password, @PathVariable String role){
+                              @PathVariable String password){
         User user = this.userService.checkLogin(username, password);
         System.out.println("管理员登录" + user.toString());
 

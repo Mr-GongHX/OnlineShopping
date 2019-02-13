@@ -81,8 +81,11 @@ td > span {
     color: gray;
 }
 
-.copyright {
-    position: fixed;
-    bottom: 10px;
-    left: 675px;
-}
+/*.copyright {*/
+    /**/
+/*}*/
+/*.copyright > span {*/
+    /*position: center;*/
+    /*bottom: 10px;*/
+    /*text-align: center;*/
+/*}*/
