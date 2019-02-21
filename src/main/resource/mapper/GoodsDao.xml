@@ -34,14 +34,14 @@
     <!-- 根据商品id更新商品展示图 -->
     <update id="updateGoodsPicturePath" parameterType="com.onlineShopping.model.Goods">
         UPDATE goods
-        SET goodsPicturePath = #{goodsPicturePath}
+        SET goodsPicturePath = CONCAT(goodsPicturePath, #{goodsPicturePath})
         WHERE goodsId = #{goodsId}
     </update>
 
     <!-- 根据商品id更新商品详情图 -->
     <update id="updateGoodsPictureInfoPath" parameterType="com.onlineShopping.model.Goods">
         UPDATE goods
-        SET goodsPictureInfoPath = #{goodsPictureInfoPath}
+        SET goodsPictureInfoPath = CONCAT(goodsPictureInfoPath, #{goodsPictureInfoPath})
         WHERE goodsId = #{goodsId}
     </update>
 
