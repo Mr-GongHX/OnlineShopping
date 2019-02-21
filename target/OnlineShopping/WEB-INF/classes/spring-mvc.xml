@@ -13,8 +13,11 @@
     <!-- 扫描web相关的bean -->
     <context:component-scan base-package="com.onlineShopping"/>
 
-    <!-- 开启SpringMVC注解模式 -->
-    <mvc:annotation-driven/>
+    <!-- 配置spring-mvc注解及数据类型的转换与格式化 -->
+    <mvc:annotation-driven conversion-service="conversionService" />
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    </bean>
 
     <!-- 静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>

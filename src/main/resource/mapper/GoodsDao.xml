@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为GoodsDao接口方法提供sql语句配置 -->
+<mapper namespace="com.onlineShopping.dao.GoodsDao">
+
+    <!-- 把商品参数插入到数据库中 -->
+    <insert id="insertGoodsInfo" useGeneratedKeys="true" keyProperty="goodsId" keyColumn="goodsId" parameterType="com.onlineShopping.model.Goods">
+        INSERT INTO goods(
+          shopId,
+          typeId,
+          goodsName,
+          goodsStatus,
+          goodsPrice,
+          goodsAmount,
+          goodsPicturePath,
+          goodsPictureInfoPath,
+          goodsUploadTime,
+          goodsModifyTime
+        )VALUES(
+          #{shopId},
+          #{typeId},
+          #{goodsName},
+          '0',
+          #{goodsPrice},
+          #{goodsAmount},
+          '',
+          '',
+          #{goodsUploadTime},
+          #{goodsModifyTime}
+        )
+    </insert>
+
+    <!-- 根据商品id更新商品展示图 -->
+    <update id="updateGoodsPicturePath" parameterType="com.onlineShopping.model.Goods">
+        UPDATE goods
+        SET goodsPicturePath = #{goodsPicturePath}
+        WHERE goodsId = #{goodsId}
+    </update>
+
+    <!-- 根据商品id更新商品详情图 -->
+    <update id="updateGoodsPictureInfoPath" parameterType="com.onlineShopping.model.Goods">
+        UPDATE goods
+        SET goodsPictureInfoPath = #{goodsPictureInfoPath}
+        WHERE goodsId = #{goodsId}
+    </update>
+
+    <!-- 根据商家id查找所有商品 -->
+    <select id="showMyGoodsByShopId" resultType="java.util.Map">
+        SELECT *
+        FROM goods
+        WHERE shopId = #{shopId}
+    </select>
+
+    <!-- 根据商品id查找商品展示图 -->
+    <select id="showMyGoodsPictureByGoodsId" resultType="java.lang.String">
+        SELECT goodsPicturePath
+        FROM goods
+        WHERE goodsId = #{goodsId}
+    </select>
+
+    <!-- 根据商品id查找商品详情图 -->
+    <select id="showMyGoodsPictureInfoByGoodsId" resultType="java.lang.String">
+        SELECT goodsPictureInfoPath
+        FROM goods
+        WHERE goodsId = #{goodsId}
+    </select>
+</mapper>
