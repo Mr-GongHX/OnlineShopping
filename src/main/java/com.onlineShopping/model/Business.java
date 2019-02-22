@@ -1,9 +1,9 @@
 package com.onlineShopping.model;
 
 /**
- * 商家实体类
- * @Author GongHaoxin
- * @Date ${Date} ${Time}
+ * @Description: 商家实体类
+ * @Author Gong Haoxin
+ * @Date 2019-01-20 11:34:32
  */
 
 public class Business {
@@ -90,18 +90,4 @@ public class Business {
         this.shopRegisterTime = shopRegisterTime;
     }
 
-    @Override
-    public String toString() {
-        return "Business{" +
-                "shopId=" + shopId +
-                ", shopName='" + shopName + '\'' +
-                ", shopAdminName='" + shopAdminName + '\'' +
-                ", shopAdminPassword='" + shopAdminPassword + '\'' +
-                ", shopStatus='" + shopStatus + '\'' +
-                ", shopBusiness='" + shopBusiness + '\'' +
-                ", shopInfoPath='" + shopInfoPath + '\'' +
-                ", shopBalance='" + shopBalance + '\'' +
-                ", shopRegisterTime='" + shopRegisterTime + '\'' +
-                '}';
-    }
 }

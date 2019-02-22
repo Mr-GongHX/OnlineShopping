@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description: 上传商品类
+ * @Description: 商品Controller
  * @Author: Gong Haoxin
  * @CreateTime: 2019-02-12 19:25:50
  **/

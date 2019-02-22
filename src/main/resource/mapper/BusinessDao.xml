@@ -4,8 +4,27 @@
 <!-- 设置为BusinessDao接口方法提供sql语句配置 -->
 <mapper namespace="com.onlineShopping.dao.BusinessDao">
 
-    <select id="findByBusinessName" resultType="com.onlineShopping.model.Business" parameterType="java.lang.String">
-        SELECT * FROM user WHERE shopAdminName=#{username}
+    <!-- 检测商家管理员用户名是否重复 -->
+    <select id="isShopAdminNameDuplicate" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(shopAdminName)
+        FROM shop
+        WHERE shopAdminName = #{shopAdminName}
     </select>
 
+    <!-- 商家注册 -->
+    <insert id="shopRegister" parameterType="com.onlineShopping.model.Business">
+        INSERT INTO shop(
+          shopName,
+          shopAdminName,
+          shopAdminPassword,
+          shopBalance,
+          shopRegisterTime
+        )VALUES(
+          #{shopName},
+          #{shopAdminName},
+          #{shopAdminPassword},
+          '0',
+          #{shopRegisterTime}
+        )
+    </insert>
 </mapper>
