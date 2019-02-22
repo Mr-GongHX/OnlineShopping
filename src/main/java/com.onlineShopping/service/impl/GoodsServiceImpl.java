@@ -196,5 +196,62 @@ public class GoodsServiceImpl implements GoodsService {
         }
     }
 
+    /**
+     * 根据商品id查找商品信息
+     * @param goodsId
+     * @return
+     */
+    @Override
+    public Goods showGoodsByGoodsId(Integer goodsId) {
+        return goodsDao.showGoodsByGoodsId(goodsId);
+    }
+
+    /**
+     * 根据操作类型修改商品
+     * @param request
+     * @param operateType
+     * @param goodsId
+     * @return
+     */
+    @Override
+    public String operateGoods(HttpServletRequest request, String operateType, String goodsId) {
+//      获取当前系统时间
+        Date currentTime = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//      修改商品
+        if(operateType.equals("updateGoods")){
+            //商品参数
+            String goodsName = request.getParameter("goodsName");
+            String goodsPrice = request.getParameter("goodsPrice");
+            String goodsAmount = request.getParameter("goodsAmount");
+            String typeId = request.getParameter("typeId");
+            String goodsStatus = request.getParameter("goodsStatus");
+            try {
+                //设置获取参数的编码
+                goodsName =  URLEncoder.encode(goodsName, "UTF-8");
+                goodsName = URLDecoder.decode(goodsName,"UTF-8");
+                goodsName = URLDecoder.decode(goodsName,"UTF-8");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Goods goods = new Goods();
+    //      设置商品对应的参数
+            goods.setGoodsName(goodsName);
+            goods.setGoodsPrice(Double.parseDouble(goodsPrice));
+            goods.setGoodsAmount(goodsAmount);
+            goods.setTypeId(typeId);
+            goods.setGoodsStatus(goodsStatus);
+            goods.setGoodsModifyTime(sdf.format(currentTime));
+            goodsDao.updateGoodsByGoodsId(goods, goodsId);
+            return "修改成功";
+//      删除商品
+        } else if(operateType.equals("deleteGoods")){
+            goodsDao.deleteGoodsByGoodsId(sdf.format(currentTime), goodsId);
+            return "删除成功";
+        } else {
+            return "参数错误";
+        }
+    }
+
 
 }

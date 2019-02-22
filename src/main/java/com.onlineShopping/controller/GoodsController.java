@@ -1,5 +1,6 @@
 package com.onlineShopping.controller;
 
+import com.onlineShopping.model.Goods;
 import com.onlineShopping.service.GoodsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +81,6 @@ public class GoodsController {
     public List<Map<String, Object>> showMyGoods(Model model, @PathVariable String shopId){
         model.addAttribute("shopId", shopId);
         System.out.println("进入我的商品");
-        goodsService.showMyGoodsByShopId(Integer.parseInt(shopId));
         return goodsService.showMyGoodsByShopId(Integer.parseInt(shopId));
     }
 
@@ -97,34 +98,73 @@ public class GoodsController {
         model.addAttribute("imgType", imgType);
         model.addAttribute("goodsId", goodsId);
         System.out.println("进入查找图片");
+//      设置消息头
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
         response.setContentType("image/jpeg");
+//      从数据库中查询图片路径
         String imgUrl = goodsService.showMyGoodsImgByGoodsId(imgType, Integer.parseInt(goodsId));
         System.out.println("图片:" + imgUrl);
         File file = null;
         FileInputStream fis = null;
-        if(imgUrl != null) {
-            file = new File(imgUrl);
-            try {
-                fis = new FileInputStream(file);
-                long size = file.length();
-                byte[] temp = new byte[(int) size];
-                fis.read(temp, 0, (int) size);
-                fis.close();
-                response.setContentType("image/jpeg");
-                OutputStream out = response.getOutputStream();
-                out.write(temp);
-                out.flush();
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+//      分割数据库中保存图片路径的字符串
+        List<String> result = Arrays.asList(imgUrl.split(","));
+        for (String imgPath :  result) {
+            System.out.println("图片URL："+imgPath);
+            if(imgPath != null) {
+                file = new File(imgPath);
+                try {
+                    fis = new FileInputStream(file);
+                    long size = file.length();
+                    byte[] temp = new byte[(int) size];
+                    fis.read(temp, 0, (int) size);
+                    fis.close();
+                    response.setContentType("image/jpeg");
+                    OutputStream out = response.getOutputStream();
+                    out.write(temp);
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return "Image Not Found";
             }
-            return "SUCCESS";
-        } else {
-            return "Image Not Found";
         }
+        return "";
+    }
+
+    /**
+     * 根据商品id查找商品信息
+     * @param model
+     * @param goodsId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/showGoods-{goodsId}")
+    public Goods showGoodsByGoodsId(Model model, @PathVariable String goodsId){
+        model.addAttribute("goodsId", goodsId);
+        System.out.println("进入商品查找：");
+        System.out.println("结果："+goodsService.showGoodsByGoodsId(Integer.parseInt(goodsId)));
+        return goodsService.showGoodsByGoodsId(Integer.parseInt(goodsId));
+    }
+
+    /**
+     * 根据操作类型（修改商品，删除商品）以及商品id对其进行操作
+     * @param request
+     * @param model
+     * @param operateType
+     * @param goodsId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/operateGoods-{operateType}-{goodsId}")
+    public String operateGoods(HttpServletRequest request, Model model, @PathVariable String operateType, @PathVariable String goodsId ){
+        model.addAttribute("operateType", operateType);
+        model.addAttribute("goodsId", goodsId);
+        System.out.println("进入修改商品");
+        return goodsService.operateGoods(request, operateType, goodsId);
     }
 
 }

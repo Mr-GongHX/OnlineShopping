@@ -65,4 +65,38 @@
         FROM goods
         WHERE goodsId = #{goodsId}
     </select>
+
+    <!-- 根据商品id查找商品信息 -->
+    <select id="showGoodsByGoodsId" resultType="com.onlineShopping.model.Goods">
+        SELECT
+          typeId,
+          goodsName,
+          goodsStatus,
+          goodsPrice,
+          goodsAmount
+        FROM goods
+        WHERE goodsId = #{goodsId}
+    </select>
+
+    <!-- 根据商品id修改商品信息 -->
+    <update id="updateGoodsByGoodsId" parameterType="com.onlineShopping.model.Goods">
+        UPDATE goods
+        SET
+          goodsName = #{goods.goodsName},
+          goodsPrice = #{goods.goodsPrice},
+          goodsAmount = #{goods.goodsAmount},
+          typeId = #{goods.typeId},
+          goodsStatus = #{goods.goodsStatus},
+          goodsModifyTime = #{goods.goodsModifyTime}
+        WHERE goodsId = #{goodsId}
+    </update>
+
+    <!-- 根据商品id删除商品(更新张品状态为"已删除") -->
+    <update id="deleteGoodsByGoodsId" parameterType="com.onlineShopping.model.Goods">
+        UPDATE goods
+        SET
+          goodsStatus = 4,
+          goodsModifyTime = #{goodsModifyTime}
+        WHERE goodsId = #{goodsId}
+    </update>
 </mapper>

@@ -1,5 +1,7 @@
 package com.onlineShopping.service;
 
+import com.onlineShopping.model.Goods;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -23,5 +25,10 @@ public interface GoodsService {
 //  根据商品图片类型（商品展示图，商品详情图）以及商品id查找图片
     public String showMyGoodsImgByGoodsId(String imgType, Integer goodsId);
 
+//  根据商品id查找商品信息
+    public Goods showGoodsByGoodsId(Integer goodsId);
+
+//  根据操作类型修改商品
+    public String operateGoods(HttpServletRequest request, String operateType, String goodsId);
 
 }

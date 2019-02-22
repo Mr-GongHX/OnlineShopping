@@ -60,4 +60,27 @@ public interface GoodsDao {
      */
     String showMyGoodsPictureInfoByGoodsId(Integer goodsId);
 
+    /**
+     * 根据商品id查找商品信息
+     * @param goodsId
+     * @return
+     */
+    Goods showGoodsByGoodsId(Integer goodsId);
+
+    /**
+     * 根据商品id修改商品信息
+     * @param goods
+     * @param goodsId
+     * @return
+     */
+    int updateGoodsByGoodsId(@Param("goods") Goods goods, @Param("goodsId") String goodsId);
+
+    /**
+     * 根据商品id删除商品(更新张品状态为"已删除")
+     * @param goodsModifyTime
+     * @param goodsId
+     * @return
+     */
+    int deleteGoodsByGoodsId(@Param("goodsModifyTime") String goodsModifyTime, @Param("goodsId") String goodsId);
+
 }
