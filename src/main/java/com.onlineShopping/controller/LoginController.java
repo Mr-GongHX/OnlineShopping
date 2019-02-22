@@ -39,15 +39,15 @@ public class LoginController {
 
     }
 
-    //商家登录
-    @RequestMapping("/shopLogin.do")
-    public void businessLogin(HttpServletRequest request, HttpServletResponse response,
-                      Model model, @PathVariable String username,
-                      @PathVariable String password){
-        Business business = this.businessService.showBusiness(username, password);
-        System.out.println("管理员登录" + business.toString());
-
-    }
+//    //商家登录
+//    @RequestMapping("/shopLogin.do")
+//    public void businessLogin(HttpServletRequest request, HttpServletResponse response,
+//                      Model model, @PathVariable String username,
+//                      @PathVariable String password){
+//        Business business = this.businessService.showBusiness(username, password);
+//        System.out.println("管理员登录" + business.toString());
+//
+//    }
 
     //用户登录
     @RequestMapping("/userLogin.do")

@@ -69,17 +69,21 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     /**
-     * 检测商家登录业务
-     * @param username
-     * @param password
+     * 商家管理员登录
+     * @param request
      * @return
      */
     @Override
-    public Business showBusiness(String username, String password) {
-//        Business business = businessDao.findByBusinessName(username);
-//        if(business != null && business.getShopAdminPassword().equals(password)){
-//            return business;
-//        }
-        return null;
+    public boolean shopAdminLogin(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        int resultNum = businessDao.shopAdminLogin(username, password);
+        if(resultNum == 1){
+            return true;
+        } else {
+            return false;
+        }
     }
+
+
 }

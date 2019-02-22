@@ -27,4 +27,12 @@
           #{shopRegisterTime}
         )
     </insert>
+
+    <!-- 商家管理员登录 -->
+    <select id="shopAdminLogin" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(shopId)
+        FROM shop
+        WHERE shopAdminName = #{shopAdminName}
+        AND shopAdminPassword = #{shopAdminPassword}
+    </select>
 </mapper>

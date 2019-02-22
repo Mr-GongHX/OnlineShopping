@@ -2,6 +2,7 @@ package com.onlineShopping.dao;
 
 
 import com.onlineShopping.model.Business;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Description: 商家Dao
@@ -15,5 +16,8 @@ public interface BusinessDao {
 
 //  商家注册
     int shopRegister(Business business);
+
+//  商家管理员登录
+    int shopAdminLogin(@Param("shopAdminName") String shopAdminName, @Param("shopAdminPassword") String shopAdminPassword);
 
 }

@@ -38,13 +38,24 @@ public class BusinessController {
      */
     @ResponseBody
     @RequestMapping("/shopRegister")
-    public boolean hopRegister(HttpServletRequest request) {
+    public boolean shopRegister(HttpServletRequest request) {
 //      返回1条结果代表注册成功
         if(businessService.shopRegister(request) == 1){
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * 商家管理员登录
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/shopAdminLogin")
+    public boolean shopAdminLogin(HttpServletRequest request) {
+        return businessService.shopAdminLogin(request);
     }
 
 }

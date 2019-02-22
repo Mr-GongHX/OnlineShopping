@@ -17,6 +17,6 @@ public interface BusinessService {
 //  商家注册
     int shopRegister(HttpServletRequest request);
 
-//  检测商家登录
-    Business showBusiness(String username, String password);
+//  商家管理员登录
+    boolean shopAdminLogin(HttpServletRequest request);
 }
