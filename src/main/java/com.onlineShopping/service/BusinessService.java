@@ -3,6 +3,7 @@ package com.onlineShopping.service;
 import com.onlineShopping.model.Business;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -23,4 +24,7 @@ public interface BusinessService {
 
 //  商家上传头像
     boolean uploadShopProfile(HttpServletRequest request, String shopId);
+
+//  根据商家id返回商家头像
+    String showShopAdminProfile(HttpServletResponse response, Integer shopId);
 }

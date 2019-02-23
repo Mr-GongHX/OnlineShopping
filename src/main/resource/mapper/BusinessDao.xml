@@ -45,4 +45,11 @@
         SET shopAdminProfile = #{shopAdminProfile}
         WHERE shopId = #{shopId}
     </update>
+
+    <!-- 根据商家id返回商家头像 -->
+    <select id="showShopAdminProfile" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT shopAdminProfile
+        FROM shop
+        WHERE shopId = #{shopId}
+    </select>
 </mapper>

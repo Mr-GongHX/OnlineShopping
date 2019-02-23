@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 import java.net.URLDecoder;
@@ -166,6 +167,44 @@ public class BusinessServiceImpl implements BusinessService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * 根据商家id返回商家头像
+     * @param response
+     * @param shopId
+     * @return
+     */
+    @Override
+    public String showShopAdminProfile(HttpServletResponse response, Integer shopId) {
+//      返回商家头像的路径
+        String imgUrl = businessDao.showShopAdminProfile(shopId);
+//      设置消息头
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("image/jpeg");
+        File file = null;
+        FileInputStream fis = null;
+        if(imgUrl != null){
+            try {
+                file = new File(imgUrl);
+                fis = new FileInputStream(file);
+                long size = file.length();
+                byte[] temp = new byte[(int) size];
+                fis.read(temp, 0, (int) size);
+                fis.close();
+                OutputStream out = response.getOutputStream();
+                out.write(temp);
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "SUCCESS";
+        } else {
+            return "Image Not Found";
         }
     }
 

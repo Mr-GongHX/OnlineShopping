@@ -25,4 +25,6 @@ public interface BusinessDao {
 //  商家上传头像
     int uploadShopProfile(@Param("shopAdminProfile") String shopAdminProfile,@Param("shopId") String shopId);
 
+//  根据商家id返回商家头像
+    String showShopAdminProfile(Integer shopId);
 }

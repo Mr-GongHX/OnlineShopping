@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -74,4 +75,17 @@ public class BusinessController {
         return businessService.uploadShopProfile(request, shopId);
     }
 
+    /**
+     * 根据商家id返回商家头像
+     * @param response
+     * @param model
+     * @param shopId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/shopAdminProfile-{shopId}")
+    public String showShopAdminProfile(HttpServletResponse response, Model model, @PathVariable String shopId) {
+        model.addAttribute("shopId", shopId);
+        return businessService.showShopAdminProfile(response, Integer.parseInt(shopId));
+    }
 }

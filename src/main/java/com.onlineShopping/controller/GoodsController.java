@@ -120,7 +120,6 @@ public class GoodsController {
                     byte[] temp = new byte[(int) size];
                     fis.read(temp, 0, (int) size);
                     fis.close();
-                    response.setContentType("image/jpeg");
                     OutputStream out = response.getOutputStream();
                     out.write(temp);
                     out.flush();
@@ -132,7 +131,7 @@ public class GoodsController {
                 return "Image Not Found";
             }
         }
-        return "";
+        return "COMPLETE";
     }
 
     /**
