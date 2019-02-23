@@ -2,11 +2,14 @@ package com.onlineShopping.controller;
 
 import com.onlineShopping.service.BusinessService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @Description: 商家Controller
@@ -54,8 +57,21 @@ public class BusinessController {
      */
     @ResponseBody
     @RequestMapping("/shopAdminLogin")
-    public boolean shopAdminLogin(HttpServletRequest request) {
+    public Map<String, Object> shopAdminLogin(HttpServletRequest request) {
         return businessService.shopAdminLogin(request);
+    }
+
+    /**
+     * 商家上传头像
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/uploadShopProfile-{shopId}")
+    public boolean uploadShopProfile(HttpServletRequest request, Model model, @PathVariable String shopId){
+        model.addAttribute("shopId", shopId);
+        System.out.println("进入商家上传头像");
+        return businessService.uploadShopProfile(request, shopId);
     }
 
 }

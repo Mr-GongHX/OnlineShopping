@@ -29,10 +29,20 @@
     </insert>
 
     <!-- 商家管理员登录 -->
-    <select id="shopAdminLogin" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT COUNT(shopId)
+    <select id="shopAdminLogin" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+          shopId,
+          shopName,
+          shopBalance
         FROM shop
         WHERE shopAdminName = #{shopAdminName}
         AND shopAdminPassword = #{shopAdminPassword}
     </select>
+
+    <!-- 商家上传头像 -->
+    <update id="uploadShopProfile" parameterType="java.lang.String">
+        UPDATE shop
+        SET shopAdminProfile = #{shopAdminProfile}
+        WHERE shopId = #{shopId}
+    </update>
 </mapper>

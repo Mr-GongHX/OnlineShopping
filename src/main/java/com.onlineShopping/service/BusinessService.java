@@ -3,6 +3,7 @@ package com.onlineShopping.service;
 import com.onlineShopping.model.Business;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @Description: 商家接口
@@ -18,5 +19,8 @@ public interface BusinessService {
     int shopRegister(HttpServletRequest request);
 
 //  商家管理员登录
-    boolean shopAdminLogin(HttpServletRequest request);
+    Map<String, Object> shopAdminLogin(HttpServletRequest request);
+
+//  商家上传头像
+    boolean uploadShopProfile(HttpServletRequest request, String shopId);
 }

@@ -4,6 +4,8 @@ package com.onlineShopping.dao;
 import com.onlineShopping.model.Business;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Map;
+
 /**
  * @Description: 商家Dao
  * @Author: Gong Haoxin
@@ -18,6 +20,9 @@ public interface BusinessDao {
     int shopRegister(Business business);
 
 //  商家管理员登录
-    int shopAdminLogin(@Param("shopAdminName") String shopAdminName, @Param("shopAdminPassword") String shopAdminPassword);
+    Map<String, Object> shopAdminLogin(@Param("shopAdminName") String shopAdminName, @Param("shopAdminPassword") String shopAdminPassword);
+
+//  商家上传头像
+    int uploadShopProfile(@Param("shopAdminProfile") String shopAdminProfile,@Param("shopId") String shopId);
 
 }
