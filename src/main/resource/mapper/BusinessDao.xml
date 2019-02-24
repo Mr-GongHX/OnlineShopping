@@ -52,4 +52,12 @@
         FROM shop
         WHERE shopId = #{shopId}
     </select>
+
+    <!-- 根据商家id返回商家信息 -->
+    <select id="shopInfo" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+          shopBalance
+        FROM shop
+        WHERE shopId = #{shopId}
+    </select>
 </mapper>

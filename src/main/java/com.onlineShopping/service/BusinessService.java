@@ -27,4 +27,10 @@ public interface BusinessService {
 
 //  根据商家id返回商家头像
     String showShopAdminProfile(HttpServletResponse response, Integer shopId);
+
+//  根据商家id返回商家信息
+    Map<String, Object> shopInfo(Integer shopId);
+
+//  商家退出登录
+    boolean shopAdminLogout(HttpServletRequest request);
 }

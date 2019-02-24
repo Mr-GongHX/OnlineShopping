@@ -27,4 +27,7 @@ public interface BusinessDao {
 
 //  根据商家id返回商家头像
     String showShopAdminProfile(Integer shopId);
+
+//  根据商家id返回商家信息
+    Map<String, Object> shopInfo(Integer shopId);
 }

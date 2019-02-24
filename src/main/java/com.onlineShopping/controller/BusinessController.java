@@ -88,4 +88,28 @@ public class BusinessController {
         model.addAttribute("shopId", shopId);
         return businessService.showShopAdminProfile(response, Integer.parseInt(shopId));
     }
+
+    /**
+     * 根据商家id返回商家信息
+     * @param model
+     * @param shopId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/shopInfo-{shopId}")
+    public Map<String, Object> shopInfo(Model model, @PathVariable String shopId){
+        model.addAttribute("shopId", shopId);
+        return businessService.shopInfo(Integer.parseInt(shopId));
+    }
+
+    /**
+     * 商家退出登录
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/shopAdminLogout")
+    public boolean shopAdminLogout(HttpServletRequest request){
+        return businessService.shopAdminLogout(request);
+    }
 }

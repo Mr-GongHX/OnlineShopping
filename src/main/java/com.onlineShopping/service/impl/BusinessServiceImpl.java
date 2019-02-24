@@ -208,5 +208,30 @@ public class BusinessServiceImpl implements BusinessService {
         }
     }
 
+    /**
+     * 根据商家id返回商家信息
+     * @param shopId
+     * @return
+     */
+    @Override
+    public Map<String, Object> shopInfo(Integer shopId) {
+        return businessDao.shopInfo(shopId);
+    }
+
+    /**
+     * 商家退出登录
+     * @param request
+     * @return
+     */
+    @Override
+    public boolean shopAdminLogout(HttpServletRequest request) {
+        String shopId = request.getParameter("shopId");
+        if(shopId != "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }
