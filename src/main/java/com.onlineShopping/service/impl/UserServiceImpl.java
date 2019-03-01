@@ -1,37 +1,74 @@
 package com.onlineShopping.service.impl;
 
 import com.onlineShopping.dao.UserDao;
-import com.onlineShopping.model.User;
 import com.onlineShopping.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Calendar;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
- * @Author GongHaoxin
- * @Date ${Date} ${Time}
- */
+ * @Description: 用户业务实现类
+ * @Author: Gong HaoXin
+ * @CreateTime: 2019-02-12 19:25:50
+ **/
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Resource
     private UserDao userDao;
 
     /**
-     * 检测用户登录业务
-     * @param username
-     * @param password
-     * @return user
+     * 根据关键字搜索商品
+     * @param searchName
+     * @return
      */
     @Override
-    public User checkLogin(String username, String password) {
-        User user = userDao.findByUsername(username);
-        if(user != null && user.getUserPassword().equals(password)){
-            return user;
-        }
-        return null;
+    public List<Map<String, Object>> searchGoods(String searchName) {
+        return userDao.searchGoods(searchName);
     }
+
+    /**
+     * 低价好货
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> showLowPriceGoods() {
+        return userDao.showLowPriceGoods();
+    }
+
+    /**
+     * 新上架商品
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> showNewGoods() {
+        return userDao.showNewGoods();
+    }
+
+    /**
+     * 根据商品id查找商品详情
+     * @param request
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> goodsInfo(HttpServletRequest request) {
+        Integer goodsId = Integer.parseInt(request.getParameter("goodsId"));
+        return userDao.goodsInfo(goodsId);
+    }
+
+    /**
+     * 根据商品id查找商品评论详情
+     * @param request
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> goodsCommentDetail(HttpServletRequest request) {
+        Integer goodsId = Integer.parseInt(request.getParameter("goodsId"));
+        return userDao.goodsCommentDetail(goodsId);
+    }
+
 
 }

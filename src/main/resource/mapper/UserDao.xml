@@ -3,10 +3,68 @@
 
 <!-- 设置为UserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.onlineShopping.dao.UserDao">
+    
+    <!-- 搜索商品 -->
+    <select id="searchGoods" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+          g.goodsId,
+          g.goodsName,
+          g.goodsPrice,
+          s.shopName
+        FROM goods g
+        LEFT JOIN shop s
+        ON g.shopId = s.shopId
+        WHERE g.goodsName LIKE CONCAT(CONCAT('%',#{searchName}),'%')
+    </select>
 
-    <!-- 查询用户和密码进行登录 -->
-    <select id="findByUsername" resultType="com.onlineShopping.model.User" parameterType="java.lang.String">
-        SELECT * FROM user WHERE username=#{username}
+    <!-- 低价好货 -->
+    <select id="showLowPriceGoods" resultType="java.util.Map">
+        SELECT *
+        FROM goods
+        ORDER BY goodsPrice ASC
+    </select>
+
+    <!-- 新上架商品 -->
+    <select id="showNewGoods" resultType="java.util.Map">
+        SELECT *
+        FROM goods
+        ORDER BY goodsUploadTime DESC
+    </select>
+
+    <!-- 根据商品id查找商品详情(限制两条数据) -->
+    <select id="goodsInfo" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+          g.goodsName,
+          g.goodsPrice,
+          s.shopName,
+          c.commentContent,
+          c.commentTime,
+          c.userId,
+          u.userNickname
+        FROM goods g
+        LEFT JOIN shop s
+        ON g.shopId = s.shopId
+        LEFT JOIN comment c
+        ON g.goodsId = c.goodsId
+        LEFT JOIN userInfo u
+        ON c.userId = u.userId
+        WHERE g.goodsId = #{goodsId}
+        ORDER BY c.commentTime DESC
+        LIMIT 0,2
+    </select>
+
+    <!-- 根据商品id查找商品评论详情 -->
+    <select id="goodsCommentDetail" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+          c.commentContent,
+          c.commentTime,
+          c.userId,
+          u.userNickname
+        FROM comment c
+        LEFT JOIN userInfo u
+        ON c.userId = u.userId
+        WHERE c.goodsId = #{goodsId}
+        ORDER BY c.commentTime DESC
     </select>
 
 </mapper>

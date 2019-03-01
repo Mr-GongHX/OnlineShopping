@@ -50,13 +50,13 @@ public class LoginController {
 //    }
 
     //用户登录
-    @RequestMapping("/userLogin.do")
-    public void userLogin(HttpServletRequest request, HttpServletResponse response,
-                              Model model, @PathVariable String username,
-                              @PathVariable String password){
-        User user = this.userService.checkLogin(username, password);
-        System.out.println("管理员登录" + user.toString());
-
-    }
+//    @RequestMapping("/userLogin.do")
+//    public void userLogin(HttpServletRequest request, HttpServletResponse response,
+//                              Model model, @PathVariable String username,
+//                              @PathVariable String password){
+//        User user = this.userService.checkLogin(username, password);
+//        System.out.println("管理员登录" + user.toString());
+//
+//    }
 
 }

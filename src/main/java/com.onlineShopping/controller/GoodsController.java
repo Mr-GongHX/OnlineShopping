@@ -73,6 +73,24 @@ public class GoodsController {
     }
 
     /**
+     * 根据商品id上传商品展示视频
+     * @param model
+     * @param goodsId
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/uploadGoodsVideo-{goodsId}")
+    public String uploadGoodsVideo(Model model, @PathVariable String goodsId, HttpServletRequest request) {
+        model.addAttribute("goodsId", goodsId);
+//      根据商品id上传商品展示视频
+        goodsService.uploadVideo(request, goodsId);
+        return "success";
+    }
+
+
+
+    /**
      * 根据商家id查找所有商品
      * @return
      */
@@ -112,7 +130,7 @@ public class GoodsController {
         List<String> result = Arrays.asList(imgUrl.split(","));
         for (String imgPath :  result) {
             System.out.println("图片URL："+imgPath);
-            if(imgPath != null) {
+            if(imgPath != null && !imgPath.equals("")) {
                 file = new File(imgPath);
                 try {
                     fis = new FileInputStream(file);
@@ -132,6 +150,17 @@ public class GoodsController {
             }
         }
         return "COMPLETE";
+    }
+
+    /**
+     * 根据商品id展示商品展示视频
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping("/showMyGoodsVideo-{goodsId}")
+    public String showMyGoodsVideoByGoodsId(Model model, @PathVariable String goodsId, HttpServletResponse response){
+        model.addAttribute("goodsId", goodsId);
+        return goodsService.showMyGoodsVideoByGoodsId(response, Integer.parseInt(goodsId));
     }
 
     /**

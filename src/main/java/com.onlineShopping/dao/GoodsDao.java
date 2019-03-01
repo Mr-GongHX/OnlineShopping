@@ -40,6 +40,14 @@ public interface GoodsDao {
     int updateGoodsPictureInfoPath(@Param("goodsPictureInfoPath") String goodsPictureInfoPath, @Param("goodsId") String goodsId);
 
     /**
+     * 根据商品id更新商品展示视频
+     * @param goodsVideoPath
+     * @param goodsId
+     * @return
+     */
+    int updateGoodsVideo(@Param("goodsVideoPath") String goodsVideoPath, @Param("goodsId") String goodsId);
+
+    /**
      * 根据商家id查找所有商品
      * @param shopId
      * @return
@@ -59,6 +67,13 @@ public interface GoodsDao {
      * @return
      */
     String showMyGoodsPictureInfoByGoodsId(Integer goodsId);
+
+    /**
+     * 根据商品id查找商品展示视频
+     * @param goodsId
+     * @return
+     */
+    String showMyGoodsVideoByGoodsId(Integer goodsId);
 
     /**
      * 根据商品id查找商品信息

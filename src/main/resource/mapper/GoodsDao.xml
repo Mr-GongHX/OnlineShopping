@@ -15,6 +15,7 @@
           goodsAmount,
           goodsPicturePath,
           goodsPictureInfoPath,
+          goodsVideoPath,
           goodsUploadTime,
           goodsModifyTime
         )VALUES(
@@ -24,6 +25,7 @@
           '0',
           #{goodsPrice},
           #{goodsAmount},
+          '',
           '',
           '',
           #{goodsUploadTime},
@@ -45,11 +47,19 @@
         WHERE goodsId = #{goodsId}
     </update>
 
+    <!-- 根据商品id更新商品展示视频 -->
+    <update id="updateGoodsVideo" parameterType="com.onlineShopping.model.Goods">
+        UPDATE goods
+        SET goodsVideoPath = #{goodsVideoPath}
+        WHERE goodsId = #{goodsId}
+    </update>
+
     <!-- 根据商家id查找所有商品 -->
     <select id="showMyGoodsByShopId" resultType="java.util.Map">
         SELECT *
         FROM goods
         WHERE shopId = #{shopId}
+        ORDER BY goodsModifyTime DESC
     </select>
 
     <!-- 根据商品id查找商品展示图 -->
@@ -62,6 +72,13 @@
     <!-- 根据商品id查找商品详情图 -->
     <select id="showMyGoodsPictureInfoByGoodsId" resultType="java.lang.String">
         SELECT goodsPictureInfoPath
+        FROM goods
+        WHERE goodsId = #{goodsId}
+    </select>
+
+    <!-- 根据商品id查找商品展示视频 -->
+    <select id="showMyGoodsVideoByGoodsId" resultType="java.lang.String">
+        SELECT goodsVideoPath
         FROM goods
         WHERE goodsId = #{goodsId}
     </select>
