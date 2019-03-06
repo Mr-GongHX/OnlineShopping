@@ -109,4 +109,62 @@
         ORDER BY c.commentTime DESC
     </select>
 
+    <!-- 检测用户名是否重复 -->
+    <select id="isUsernameDuplicate"  parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(username)
+        FROM user
+        WHERE username = #{username}
+    </select>
+
+    <!-- 用户注册 -->
+    <insert id="userRegister" parameterType="com.onlineShopping.model.User">
+        INSERT INTO user(
+          username,
+          userPassword,
+          userNickname,
+          userStatus,
+          userBalance,
+          userRegisterTime
+        ) VALUES (
+          #{username},
+          #{userPassword},
+          #{userNickname},
+          "0",
+          "0",
+          #{userRegisterTime}
+        )
+    </insert>
+
+    <!-- 用户登录 -->
+    <select id="userLogin" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+          userId,
+          userNickname,
+          userBalance
+        FROM user
+        WHERE username = #{username}
+        AND userPassword = #{password}
+    </select>
+
+    <!-- 用户上传头像 -->
+    <update id="uploadUserProfile" parameterType="java.lang.String">
+        UPDATE user
+        SET userProfile = #{userProfile}
+        WHERE userId = #{userId}
+    </update>
+
+    <!-- 根据用户id返回用户头像 -->
+    <select id="showUserProfile" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT userProfile
+        FROM user
+        WHERE userId = #{userId}
+    </select>
+
+    <!-- 根据用户id返回用户信息 -->
+    <select id="userInfo" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+          userBalance
+        FROM user
+        WHERE userId = #{userId}
+    </select>
 </mapper>

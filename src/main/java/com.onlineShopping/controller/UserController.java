@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -110,4 +111,95 @@ public class UserController {
         return userService.goodsCommentDetail(request);
     }
 
+    /**************************/
+
+
+    /**
+     * 检测用户名是否重复
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/checkUsernameDuplicate")
+    public boolean checkUsernameDuplicate(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        return userService.checkUsernameDuplicate(username);
+    }
+
+    /**
+     * 用户注册
+     * @param request
+     */
+    @ResponseBody
+    @RequestMapping("/userRegister")
+    public boolean shopRegister(HttpServletRequest request) {
+//      返回1条结果代表注册成功
+        if(userService.userRegister(request) == 1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 用户登录
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/userLogin")
+    public Map<String, Object> shopAdminLogin(HttpServletRequest request) {
+        return userService.userLogin(request);
+    }
+
+    /**
+     * 用户上传头像
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/uploadUserProfile-{userId}")
+    public boolean uploadUserProfile(HttpServletRequest request, Model model, @PathVariable String userId){
+        model.addAttribute("userId", userId);
+        System.out.println("进入用户上传头像");
+        return userService.uploadUserProfile(request, userId);
+    }
+
+    /**
+     * 根据用户id返回用户头像
+     * @param response
+     * @param model
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/userProfile-{userId}")
+    public String showShopAdminProfile(HttpServletResponse response, Model model, @PathVariable String userId) {
+        model.addAttribute("shopId", userId);
+        return userService.showUserProfile(response, Integer.parseInt(userId));
+    }
+
+    /**
+     * 根据用户id返回用户信息
+     * @param model
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/userInfo-{userId}")
+    public Map<String, Object> shopInfo(Model model, @PathVariable String userId){
+        model.addAttribute("userId", userId);
+        return userService.userInfo(Integer.parseInt(userId));
+    }
+
+    /**
+     * 商家退出登录
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/userLogout")
+    public boolean shopAdminLogout(HttpServletRequest request){
+        return userService.userLogout(request);
+    }
 }

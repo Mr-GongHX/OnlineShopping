@@ -1,6 +1,9 @@
 package com.onlineShopping.dao;
 
 
+import com.onlineShopping.model.User;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -35,4 +38,21 @@ public interface UserDao {
 //  根据商品id查找商品评论详情
     List<Map<String, Object>> goodsCommentDetail(Integer goodsId);
 
+//  检测用户名是否重复
+    int isUsernameDuplicate(String username);
+
+//  用户注册
+    int userRegister(User user);
+
+//  用户登录
+    Map<String, Object> userLogin(@Param("username") String username, @Param("password") String password);
+
+//  用户上传头像
+    int uploadUserProfile(@Param("userProfile") String userProfile, @Param("userId") String userId);
+
+//  根据用户id返回用户头像
+    String showUserProfile(int userId);
+
+//  根据用户id返回用户信息
+    Map<String, Object> userInfo(int userId);
 }

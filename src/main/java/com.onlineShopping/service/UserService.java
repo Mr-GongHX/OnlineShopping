@@ -1,6 +1,7 @@
 package com.onlineShopping.service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -34,4 +35,25 @@ public interface UserService {
 
 //  根据商品id查找商品评论详情
     List<Map<String, Object>> goodsCommentDetail(HttpServletRequest request);
+
+//  检测用户名是否重复
+    boolean checkUsernameDuplicate(String username);
+
+//  用户注册
+    int userRegister(HttpServletRequest request);
+
+//  用户登录
+    Map<String, Object> userLogin(HttpServletRequest request);
+
+//  用户上传头像
+    boolean uploadUserProfile(HttpServletRequest request, String userId);
+
+//  根据用户id返回用户头像
+    String showUserProfile(HttpServletResponse response, int parseInt);
+
+//  根据用户id返回用户信息
+    Map<String, Object> userInfo(int parseInt);
+
+//  用户退出登录
+    boolean userLogout(HttpServletRequest request);
 }
