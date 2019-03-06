@@ -31,7 +31,34 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 低价好货
+     * 展示手机专区商品
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> showPhoneAreaGoods() {
+        return userDao.showPhoneAreaGoods();
+    }
+
+    /**
+     * 展示电脑专区商品
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> showComputerAreaGoods() {
+        return userDao.showComputerAreaGoods();
+    }
+
+    /**
+     * 展示外设专区商品
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> showAccessoryAreaGoods() {
+        return userDao.showAccessoryAreaGoods();
+    }
+
+    /**
+     * 低价好货商品
      * @return
      */
     @Override

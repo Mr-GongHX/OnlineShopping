@@ -17,6 +17,48 @@
         WHERE g.goodsName LIKE CONCAT(CONCAT('%',#{searchName}),'%')
     </select>
 
+    <!-- 展示手机专区商品 -->
+    <select id="showPhoneAreaGoods" resultType="java.util.Map">
+        SELECT
+        g.goodsId,
+        g.goodsName,
+        g.goodsPrice,
+        s.shopName
+        FROM goods g
+        LEFT JOIN shop s
+        ON g.shopId = s.shopId
+        WHERE g.typeId = 1
+        ORDER BY g.goodsUploadTime DESC
+    </select>
+
+    <!-- 展示电脑专区商品 -->
+    <select id="showComputerAreaGoods" resultType="java.util.Map">
+        SELECT
+        g.goodsId,
+        g.goodsName,
+        g.goodsPrice,
+        s.shopName
+        FROM goods g
+        LEFT JOIN shop s
+        ON g.shopId = s.shopId
+        WHERE g.typeId = 0
+        ORDER BY g.goodsUploadTime DESC
+    </select>
+
+    <!-- 展示外设专区商品 -->
+    <select id="showAccessoryAreaGoods" resultType="java.util.Map">
+        SELECT
+        g.goodsId,
+        g.goodsName,
+        g.goodsPrice,
+        s.shopName
+        FROM goods g
+        LEFT JOIN shop s
+        ON g.shopId = s.shopId
+        WHERE g.typeId = 2
+        ORDER BY g.goodsUploadTime DESC
+    </select>
+
     <!-- 低价好货 -->
     <select id="showLowPriceGoods" resultType="java.util.Map">
         SELECT *

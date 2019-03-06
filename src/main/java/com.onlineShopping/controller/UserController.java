@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +36,36 @@ public class UserController {
     public List<Map<String, Object>> searchGoods(Model model, @PathVariable String searchName){
         model.addAttribute("searchName", searchName);
         return userService.searchGoods(searchName);
+    }
+
+    /**
+     * 展示手机专区商品
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/showPhoneAreaGoods")
+    public List<Map<String, Object>> showPhoneAreaGoods(){
+        return userService.showPhoneAreaGoods();
+    }
+
+    /**
+     * 展示电脑专区商品
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/showComputerAreaGoods")
+    public List<Map<String, Object>> showComputerAreaGoods(){
+        return userService.showComputerAreaGoods();
+    }
+
+    /**
+     * 展示外设专区商品
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/showAccessoryAreaGoods")
+    public List<Map<String, Object>> showAccessoryAreaGoods(){
+        return userService.showAccessoryAreaGoods();
     }
 
     /**

@@ -14,6 +14,15 @@ public interface UserService {
 //  根据关键字搜索商品
     List<Map<String, Object>> searchGoods(String searchName);
 
+//  展示手机专区商品
+    List<Map<String, Object>> showPhoneAreaGoods();
+
+//  展示电脑专区商品
+    List<Map<String, Object>> showComputerAreaGoods();
+
+//  展示外设专区商品
+    List<Map<String, Object>> showAccessoryAreaGoods();
+
 //  低价好货
     List<Map<String, Object>> showLowPriceGoods();
 
