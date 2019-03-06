@@ -103,7 +103,7 @@
           c.userId,
           u.userNickname
         FROM comment c
-        LEFT JOIN userInfo u
+        LEFT JOIN user u
         ON c.userId = u.userId
         WHERE c.goodsId = #{goodsId}
         ORDER BY c.commentTime DESC
