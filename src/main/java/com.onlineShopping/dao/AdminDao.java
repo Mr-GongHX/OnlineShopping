@@ -1,10 +1,14 @@
 package com.onlineShopping.dao;
 
-import com.onlineShopping.model.Administrator;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
+ * 管理员Dao
  * @Author GongHaoxin
- * @Date ${Date} ${Time}
+ * @Date 2019-02-12 19:16:40
  */
 public interface AdminDao {
 
@@ -14,5 +18,17 @@ public interface AdminDao {
      * @param password 管理员密码
      * @return
      */
-    Administrator findByAdminName(String username);
+    int checkAdminLogin(@Param("username") String username, @Param("password") String password);
+
+    //查询平台交易总额
+    Object showPlatformTotalTrade();
+
+    //查询平台注册用户总数
+    Object showPlatformTotalUsers();
+
+    //查询平台入驻商家总数
+    Object showPlatformTotalBusiness();
+
+    //查询平台商品总数
+    Object showPlatformTotalGoods();
 }

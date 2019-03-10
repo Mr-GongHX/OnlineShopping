@@ -36,12 +36,4 @@ public class Administrator {
         this.adminPassword = adminPassword;
     }
 
-    @Override
-    public String toString() {
-        return "Administrator{" +
-                "adminId=" + adminId +
-                ", adminName='" + adminName + '\'' +
-                ", adminPassword='" + adminPassword + '\'' +
-                '}';
-    }
 }

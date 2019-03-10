@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>欢迎使用在线购物网后台管理系统</title>
+		<link rel="icon" href="../../favicon.ico" mce_href="../src/favicon.ico" type="image/x-icon">
+		<!-- 引入CSS -->
+		<link rel="stylesheet" href="/view/src/css/login.css">
+		<link rel="stylesheet" href="/view/src/css/login-1.css">
+		<!-- 引入JS -->
+		<script src="/view/src/js/login.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<!-- 头部 START -->
+		<div class="top">
+			<p>欢迎使用在线购物网后台管理系统</p>
+		</div>
+		<!-- 头部 END -->
+
+		<!-- FORM表单 START -->
+		<div class="login">
+			<h1>管理员登录</h1>
+			<form id="loginForm" onsubmit="return false" action="/admin/adminLogin.do" method="post">
+				<input id="username" class="input" type="text" name="username" placeholder="用户名" required="required" />
+				<input id="password" class="input" type="password" name="password" placeholder="密码" required="required" />
+				<input type="submit" value="登录" onclick="return login()" class="btn btn-primary btn-block btn-large" />
+			</form>
+		</div>
+		<!-- FORM表单 END -->
+
+		<!-- 版权 START -->
+		<!--<div class="copyright">-->
+			<!--<span>©2019&nbsp;Gong&nbsp;HaoXin&nbsp;&nbsp;&nbsp;&nbsp;版权所有&nbsp;保留一切权利</span>-->
+		<!--</div>-->
+		<!-- 版权 END -->
+	</body>
+</html>

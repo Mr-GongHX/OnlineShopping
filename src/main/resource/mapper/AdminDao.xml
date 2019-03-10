@@ -4,8 +4,43 @@
 <!-- 设置为AdminDao接口方法提供sql语句配置 -->
 <mapper namespace="com.onlineShopping.dao.AdminDao">
 
-    <select id="findByAdminName" resultType="com.onlineShopping.model.Administrator" parameterType="java.lang.String">
-        SELECT * FROM user WHERE adminName=#{username}
+    <!-- 检测管理员登录 -->
+    <select id="checkAdminLogin" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT COUNT(adminId)
+        FROM administrator
+        WHERE adminName = #{username}
+        AND adminPassword = #{password}
+    </select>
+    
+    <!-- 查询平台交易总额 -->
+    <select id="showPlatformTotalTrade" resultType="java.lang.Object">
+        SELECT
+        SUM(orderPrice)
+        AS totalTrade
+        FROM `order`
     </select>
 
+    <!-- 查询平台注册用户总数 -->
+    <select id="showPlatformTotalUsers" resultType="java.lang.Object">
+      SELECT
+      COUNT(userId)
+      AS users
+      FROM user
+    </select>
+
+    <!-- 查询平台入驻商家总数 -->
+    <select id="showPlatformTotalBusiness" resultType="java.lang.Object">
+      SELECT
+      COUNT(shopId)
+      AS business
+      FROM shop
+    </select>
+
+    <!-- 查询平台平台商品总数 -->
+    <select id="showPlatformTotalGoods" resultType="java.lang.Object">
+      SELECT
+      COUNT(goodsId)
+      AS goods
+      FROM goods
+    </select>
 </mapper>
