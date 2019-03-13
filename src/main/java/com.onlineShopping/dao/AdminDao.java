@@ -31,4 +31,23 @@ public interface AdminDao {
 
     //查询平台商品总数
     Object showPlatformTotalGoods();
+
+    //商品审核
+    List<Map<String, Object>> goodsCheck();
+
+    //商品审核通过
+    int goodsPass(String goodsId);
+
+    //商品审核不通过
+    int goodsRefuse(String goodsId);
+
+    //评论审核
+    List<Map<String, Object>> commentCheck();
+
+    //评论审核通过
+    int commentPass(String commentId);
+
+    //评论审核不通过
+    int commentRefuse(String commentId);
+
 }

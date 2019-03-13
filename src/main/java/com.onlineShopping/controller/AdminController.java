@@ -3,15 +3,23 @@ package com.onlineShopping.controller;
 import com.onlineShopping.service.AdminService;
 import com.onlineShopping.service.BusinessService;
 import com.onlineShopping.service.UserService;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.Template;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 
 import javax.annotation.Resource;
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +76,51 @@ public class AdminController {
     @RequestMapping("/showPlatformDetail")
     public Map<String, Object> showPlatformDetail() {
         return adminService.showPlatformDetail();
+    }
+
+    /**
+     * 商品审核
+     * @param model
+     * @return
+     */
+    @RequestMapping("goodsCheck")
+    public String goodsCheck(ModelMap model) {
+        List<Map<String, Object>> list = adminService.goodsCheck();
+        model.addAttribute("data", list);
+        return "goodsCheck";
+    }
+
+    /**
+     * 更新商品审核状态（通过，不通过）
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("updateGoodsStatus")
+    public boolean updateGoodsStatus(HttpServletRequest request) {
+        return adminService.updateGoodsStatus(request);
+    }
+
+    /**
+     * 评论审核
+     * @return
+     */
+    @RequestMapping("/commentCheck")
+    public String commentCheck(ModelMap model) {
+        List<Map<String, Object>> list = adminService.commentCheck();
+        model.addAttribute("data", list);
+        return "commentCheck";
+    }
+
+    /**
+     * 更新评论审核状态（通过，不通过）
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("updateCommentStatus")
+    public boolean updateCommentStatus(HttpServletRequest request) {
+        return adminService.updateCommentStatus(request);
     }
 
 }

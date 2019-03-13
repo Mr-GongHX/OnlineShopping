@@ -23,7 +23,7 @@ import java.util.UUID;
 
 /**
  * @Description: 商品业务逻辑
- * @Author: Gong Haoxin
+ * @Author: Gong HaoXin
  * @CreateTime: 2019-02-17 15:09:21
  **/
 @Service("goodsService")

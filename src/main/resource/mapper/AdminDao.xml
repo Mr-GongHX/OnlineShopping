@@ -11,7 +11,7 @@
         WHERE adminName = #{username}
         AND adminPassword = #{password}
     </select>
-    
+
     <!-- 查询平台交易总额 -->
     <select id="showPlatformTotalTrade" resultType="java.lang.Object">
         SELECT
@@ -43,4 +43,77 @@
       AS goods
       FROM goods
     </select>
+
+    <!-- 商品审核 -->
+    <select id="goodsCheck" resultType="java.util.Map">
+      SELECT
+          s.shopName,
+          g.goodsId,
+          g.goodsName,
+          g.goodsPrice,
+          g.goodsPicturePath AS goodsPicture,
+          g.goodsVideoPath AS goodsVideo,
+          g.goodsPictureInfoPath AS goodsPictureInfo,
+          g.goodsUploadTime,
+          CASE g.goodsStatus
+            WHEN 0 THEN '待审核'
+            WHEN 1 THEN '已上架'
+            WHEN 2 THEN '已下架'
+            WHEN 3 THEN '未通过'
+            WHEN 4 THEN '已删除'
+          END AS goodsStatus
+      FROM goods g
+      LEFT JOIN shop s
+      ON g.shopId = s.shopId
+      ORDER BY g.goodsUploadTime DESC
+    </select>
+
+    <!-- 商品审核通过 -->
+    <update id="goodsPass" parameterType="java.lang.String">
+      UPDATE goods
+      SET goodsStatus = 1
+      WHERE goodsId = #{goodsId}
+    </update>
+
+    <!-- 商品审核不通过 -->
+    <update id="goodsRefuse" parameterType="java.lang.String">
+      UPDATE goods
+      SET goodsStatus = 3
+      WHERE goodsId = #{goodsId}
+    </update>
+
+    <!-- 评论审核 -->
+    <select id="commentCheck" resultType="java.util.Map">
+      SELECT
+          u.userNickname,
+          g.goodsName,
+          c.commentId,
+          c.commentContent,
+          c.commentTime,
+          CASE c.commentStatus
+          WHEN 0 THEN '通过'
+          WHEN 1 THEN '未通过'
+          ELSE '待审核'
+          END AS commentStatus
+      FROM comment c
+      LEFT JOIN user u
+      ON c.userId = u.userId
+      LEFT JOIN goods g
+      ON c.goodsId = g.goodsId
+      ORDER BY c.commentTime DESC
+    </select>
+
+    <!-- 评论审核通过 -->
+    <update id="commentPass" parameterType="java.lang.String">
+        UPDATE comment
+        SET commentStatus = 0
+        WHERE commentId = #{commentId}
+    </update>
+
+    <!-- 评论审核不通过 -->
+    <update id="commentRefuse" parameterType="java.lang.String">
+        UPDATE comment
+        SET commentStatus = 1
+        WHERE commentId = #{commentId}
+    </update>
 </mapper>

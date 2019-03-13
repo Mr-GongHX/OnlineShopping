@@ -79,8 +79,12 @@
           g.goodsName,
           g.goodsPrice,
           s.shopName,
-          c.commentContent,
           c.commentTime,
+          CASE c.commentStatus
+            WHEN 0 THEN c.commentContent
+            WHEN 1 THEN '该评论审核未通过'
+            ELSE '该评论等待管理员审核'
+          END AS commentContent,
           c.userId,
           u.userNickname
         FROM goods g
@@ -98,7 +102,11 @@
     <!-- 根据商品id查找商品评论详情 -->
     <select id="goodsCommentDetail" parameterType="java.lang.Integer" resultType="java.util.Map">
         SELECT
-          c.commentContent,
+          CASE c.commentStatus
+            WHEN 0 THEN c.commentContent
+            WHEN 1 THEN '该评论审核未通过'
+            ELSE '该评论等待管理员审核'
+          END AS commentContent,
           c.commentTime,
           c.userId,
           u.userNickname

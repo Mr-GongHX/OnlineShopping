@@ -27,6 +27,45 @@
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/view/pages/"/>
         <property name="suffix" value=".html"/>
+        <property name="order" value="1" />
     </bean>
 
+    <!-- 配置FreeMaker视图解析器 -->
+    <bean id="ftlViewResolver"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="requestContextAttribute" value="request" />
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+        <property name="order" value="0" />
+    </bean>
+    <!-- 配置FreeMaker文件加载路径 -->
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/view/ftl"></property>
+        <!--<property name="templateLoaderPaths">-->
+            <!--<list>-->
+                <!--<value>/view/ftl</value>-->
+                <!--<value>/view/ftl/pc</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!-- 设置页面中文乱码问题 -->
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">5</prop>
+                <prop key="default_encoding">UTF-8</prop>
+                <prop key="locale">UTF-8</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="number_format">0.####</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="whitespace_stripping">true</prop>
+                <prop key="tag_syntax">auto_detect</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>-->
 </beans>

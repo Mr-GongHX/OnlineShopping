@@ -128,6 +128,7 @@ public class GoodsController {
         FileInputStream fis = null;
 //      分割数据库中保存图片路径的字符串
         List<String> result = Arrays.asList(imgUrl.split(","));
+//        model.addAttribute("image",result);
         for (String imgPath :  result) {
             System.out.println("图片URL："+imgPath);
             if(imgPath != null && !imgPath.equals("")) {
