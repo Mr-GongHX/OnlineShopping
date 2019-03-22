@@ -56,4 +56,7 @@ public interface UserService {
 
 //  用户退出登录
     boolean userLogout(HttpServletRequest request);
+
+//  商品评价
+    String goodsComment(HttpServletRequest request);
 }

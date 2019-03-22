@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为OrderDao接口方法提供sql语句配置 -->
+<mapper namespace="com.onlineShopping.dao.OrderDao">
+
+    <!-- 创建订单 -->
+    <insert id="createOrder" useGeneratedKeys="true" keyProperty="orderId" keyColumn="orderId" parameterType="com.onlineShopping.model.Order" >
+        INSERT INTO `order`(
+            shopId,
+            userId,
+            consigneeName,
+            consigneeAddress,
+            consigneePhone,
+            orderCode,
+            orderPrice,
+            orderCreateTime
+        )VALUES(
+          #{shopId} ,
+          #{userId} ,
+          #{consigneeName} ,
+          #{consigneeAddress} ,
+          #{consigneePhone} ,
+          #{orderCode} ,
+          #{orderPrice} ,
+          #{orderCreateTime}
+        )
+    </insert>
+
+    <!-- 查询用户订单 -->
+    <select id="showMyOrder" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+           o.orderId,
+           s.shopName,
+           CASE o.orderStatus
+           WHEN 0 THEN '待发货'
+           WHEN 1 THEN '已发货'
+           END AS orderStatus,
+           group_concat(i.goodsName) AS goodsName,
+           group_concat(i.goodsPrice) AS goodsPrice,
+           group_concat(i.goodsQuantity) AS goodsQuantity,
+           SUM(i.goodsQuantity) AS totalQuantity,
+           SUM(i.goodsQuantity * i.goodsPrice) AS totalPrice
+        FROM `order` o
+        LEFT JOIN orderInfo i
+        ON o.orderId = i.orderId
+        LEFT JOIN shop s
+        ON i.shopId = s.shopId
+        WHERE o.userId = #{userId}
+        GROUP BY i.orderId
+        ORDER BY o.orderCreateTime DESC
+    </select>
+
+    <!-- 查询订单详情 -->
+    <select id="showMyOrderInfo" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+           CASE o.orderStatus
+           WHEN 0 THEN '待发货'
+           WHEN 1 THEN '已发货'
+           END AS orderStatus,
+           o.consigneeName,
+           o.consigneePhone,
+           o.consigneeAddress,
+           s.shopName,
+           SUM(i.goodsQuantity) AS totalQuantity,
+           group_concat(i.goodsId) AS goodsId,
+           group_concat(i.goodsName) AS goodsName,
+           group_concat(i.goodsPrice) AS goodsPrice,
+           group_concat(i.goodsQuantity) AS goodsQuantity,
+           o.orderCode,
+           o.orderCreateTime,
+           SUM(i.goodsQuantity * i.goodsPrice) AS totalPrice
+        FROM `order` o
+        LEFT JOIN orderInfo i
+        ON o.orderId = i.orderId
+        LEFT JOIN shop s
+        ON i.shopId = s.shopId
+        WHERE o.orderId = #{orderId}
+    </select>
+
+    <!-- 查询商家待处理订单 -->
+    <select id="orderManagement" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+          u.userNickname,
+          CASE o.orderStatus
+               WHEN 0 THEN '待发货'
+               WHEN 1 THEN '已发货'
+               END AS orderStatus,
+          group_concat(i.goodsName) AS goodsName,
+          group_concat(i.goodsPrice) AS goodsPrice,
+          group_concat(i.goodsQuantity) AS goodsQuantity,
+          SUM(i.goodsQuantity) AS totalQuantity,
+          SUM(i.goodsQuantity * i.goodsPrice) AS totalPrice
+        FROM `order` o
+        LEFT JOIN orderInfo i
+        ON o.orderId = i.orderId
+        LEFT JOIN user u
+        ON o.userId = u.userId
+        WHERE i.shopId = #{shopId}
+        AND o.orderStatus = 0
+        GROUP BY o.orderId
+        ORDER BY o.orderCreateTime DESC
+    </select>
+
+    <!-- 商家更新订单状态 -->
+    <update id="updateOrderStatus" parameterType="java.lang.String">
+        UPDATE `order`
+        SET orderStatus = 1
+        WHERE orderId = #{orderId}
+    </update>
+
+    <!-- 查询商家收到的订单 -->
+    <select id="showShopOrder" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+          u.userNickname,
+          CASE o.orderStatus
+               WHEN 0 THEN '待发货'
+               WHEN 1 THEN '已发货'
+               END AS orderStatus,
+          group_concat(i.goodsName) AS goodsName,
+          group_concat(i.goodsPrice) AS goodsPrice,
+          group_concat(i.goodsQuantity) AS goodsQuantity,
+          SUM(i.goodsQuantity) AS totalQuantity,
+          SUM(i.goodsQuantity * i.goodsPrice) AS totalPrice
+        FROM `order` o
+        LEFT JOIN orderInfo i
+        ON o.orderId = i.orderId
+        LEFT JOIN user u
+        ON o.userId = u.userId
+        WHERE i.shopId = #{shopId}
+        GROUP BY o.orderId
+        ORDER BY o.orderCreateTime DESC
+    </select>
+</mapper>

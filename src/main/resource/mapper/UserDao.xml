@@ -78,6 +78,7 @@
         SELECT
           g.goodsName,
           g.goodsPrice,
+          g.shopId,
           s.shopName,
           c.commentTime,
           CASE c.commentStatus
@@ -175,4 +176,19 @@
         FROM user
         WHERE userId = #{userId}
     </select>
+
+    <!-- 商品评价 -->
+    <insert id="goodsComment" parameterType="com.onlineShopping.model.Comment">
+        INSERT INTO comment(
+          goodsId,
+          userId,
+          commentContent,
+          commentTime
+        ) VALUES (
+          #{goodsId},
+          #{userId},
+          #{commentContent},
+          #{commentTime}
+        )
+    </insert>
 </mapper>

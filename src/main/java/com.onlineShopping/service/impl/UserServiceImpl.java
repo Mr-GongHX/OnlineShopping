@@ -2,6 +2,7 @@ package com.onlineShopping.service.impl;
 
 import com.onlineShopping.dao.UserDao;
 import com.onlineShopping.model.Business;
+import com.onlineShopping.model.Comment;
 import com.onlineShopping.model.User;
 import com.onlineShopping.service.UserService;
 import org.apache.commons.fileupload.FileItem;
@@ -313,5 +314,31 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    /**
+     * 商品评价
+     * @param request
+     * @return
+     */
+    @Override
+    public String goodsComment(HttpServletRequest request) {
+        String userId = request.getParameter("userId");
+        String goodsId = request.getParameter("goodsId");
+        String commentContent = request.getParameter("commentContent");
+//      获取当前系统时间
+        Date currentTime = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//      创建评价实例
+        Comment comment = new Comment();
+//      设置参数
+        comment.setUserId(userId);
+        comment.setGoodsId(goodsId);
+        comment.setCommentContent(commentContent);
+        comment.setCommentTime(sdf.format(currentTime));
+//      保存到数据库中
+        if(userDao.goodsComment(comment) == 1) {
+            return "SUCCESS";
+        } else {
+            return "FAIL";
+        }
+    }
 }

@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * @Description: 商品Controller
- * @Author: Gong Haoxin
+ * @Author: Gong HaoXin
  * @CreateTime: 2019-02-12 19:25:50
  **/
 @Controller

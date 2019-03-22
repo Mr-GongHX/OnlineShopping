@@ -1,9 +1,11 @@
 package com.onlineShopping.dao;
 
 
+import com.onlineShopping.model.Comment;
 import com.onlineShopping.model.User;
 import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -55,4 +57,7 @@ public interface UserDao {
 
 //  根据用户id返回用户信息
     Map<String, Object> userInfo(int userId);
+
+//  商品评价
+    int goodsComment(Comment comment);
 }

@@ -101,6 +101,16 @@ public class UserController {
     }
 
     /**
+     * 商品评价
+     * @param request
+     * @return
+     */
+    @RequestMapping("/goodsComment")
+    public String goodsComment(HttpServletRequest request) {
+        return userService.goodsComment(request);
+    }
+
+    /**
      * 根据商品id查找商品评论详情
      * @param request
      * @return
@@ -110,9 +120,6 @@ public class UserController {
     public List<Map<String, Object>> goodsCommentDetail(HttpServletRequest request){
         return userService.goodsCommentDetail(request);
     }
-
-    /**************************/
-
 
     /**
      * 检测用户名是否重复
@@ -193,7 +200,7 @@ public class UserController {
     }
 
     /**
-     * 商家退出登录
+     * 用户退出登录
      * @param request
      * @return
      */
@@ -202,4 +209,6 @@ public class UserController {
     public boolean shopAdminLogout(HttpServletRequest request){
         return userService.userLogout(request);
     }
+
+
 }
