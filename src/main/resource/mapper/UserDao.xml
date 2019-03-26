@@ -15,6 +15,7 @@
         LEFT JOIN shop s
         ON g.shopId = s.shopId
         WHERE g.goodsName LIKE CONCAT(CONCAT('%',#{searchName}),'%')
+        AND g.goodsStatus = 1
     </select>
 
     <!-- 展示手机专区商品 -->
@@ -28,6 +29,7 @@
         LEFT JOIN shop s
         ON g.shopId = s.shopId
         WHERE g.typeId = 1
+        AND g.goodsStatus = 1
         ORDER BY g.goodsUploadTime DESC
     </select>
 
@@ -42,6 +44,7 @@
         LEFT JOIN shop s
         ON g.shopId = s.shopId
         WHERE g.typeId = 0
+        AND g.goodsStatus = 1
         ORDER BY g.goodsUploadTime DESC
     </select>
 
@@ -56,20 +59,23 @@
         LEFT JOIN shop s
         ON g.shopId = s.shopId
         WHERE g.typeId = 2
+        AND g.goodsStatus = 1
         ORDER BY g.goodsUploadTime DESC
     </select>
 
     <!-- 低价好货 -->
     <select id="showLowPriceGoods" resultType="java.util.Map">
         SELECT *
-        FROM goods
+        FROM goods g
+        WHERE g.goodsStatus = 1
         ORDER BY goodsPrice ASC
     </select>
 
     <!-- 新上架商品 -->
     <select id="showNewGoods" resultType="java.util.Map">
         SELECT *
-        FROM goods
+        FROM goods g
+        WHERE g.goodsStatus = 1
         ORDER BY goodsUploadTime DESC
     </select>
 
