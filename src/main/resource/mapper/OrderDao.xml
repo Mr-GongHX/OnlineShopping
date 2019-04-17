@@ -5,9 +5,8 @@
 <mapper namespace="com.onlineShopping.dao.OrderDao">
 
     <!-- 创建订单 -->
-    <insert id="createOrder" useGeneratedKeys="true" keyProperty="orderId" keyColumn="orderId" parameterType="com.onlineShopping.model.Order" >
+    <insert id="createOrder" useGeneratedKeys="true" keyProperty="orderId" keyColumn="orderId" parameterType="com.onlineShopping.model.Order">
         INSERT INTO `order`(
-            shopId,
             userId,
             consigneeName,
             consigneeAddress,
@@ -16,7 +15,6 @@
             orderPrice,
             orderCreateTime
         )VALUES(
-          #{shopId} ,
           #{userId} ,
           #{consigneeName} ,
           #{consigneeAddress} ,
@@ -27,15 +25,34 @@
         )
     </insert>
 
+    <!-- 创建订单明细表 -->
+    <insert id="createOrderInfo" useGeneratedKeys="true" keyProperty="orderInfoId" keyColumn="orderInfoId" parameterType="com.onlineShopping.model.Order" >
+        INSERT INTO `orderInfo`(
+            orderId,
+            shopId,
+            goodsId,
+            goodsQuantity,
+            goodsPrice,
+            goodsName,
+            goodsImg
+        ) VALUES (
+            #{orderId} ,
+            #{shopId} ,
+            #{goodsId} ,
+            #{goodsQuantity} ,
+            #{goodsPrice} ,
+            #{goodsName} ,
+            #{goodsImg}
+        )
+    </insert>
+
     <!-- 查询用户订单 -->
     <select id="showMyOrder" parameterType="java.lang.String" resultType="java.util.Map">
         SELECT
            o.orderId,
            s.shopName,
-           CASE o.orderStatus
-           WHEN 0 THEN '待发货'
-           WHEN 1 THEN '已发货'
-           END AS orderStatus,
+           o.orderStatus,
+           group_concat(i.goodsImg) AS goodsImg,
            group_concat(i.goodsName) AS goodsName,
            group_concat(i.goodsPrice) AS goodsPrice,
            group_concat(i.goodsQuantity) AS goodsQuantity,
@@ -54,16 +71,14 @@
     <!-- 查询订单详情 -->
     <select id="showMyOrderInfo" parameterType="java.lang.String" resultType="java.util.Map">
         SELECT
-           CASE o.orderStatus
-           WHEN 0 THEN '待发货'
-           WHEN 1 THEN '已发货'
-           END AS orderStatus,
+           o.orderStatus,
            o.consigneeName,
            o.consigneePhone,
            o.consigneeAddress,
            s.shopName,
            SUM(i.goodsQuantity) AS totalQuantity,
            group_concat(i.goodsId) AS goodsId,
+           group_concat(i.goodsImg) AS goodsImg,
            group_concat(i.goodsName) AS goodsName,
            group_concat(i.goodsPrice) AS goodsPrice,
            group_concat(i.goodsQuantity) AS goodsQuantity,
@@ -81,11 +96,11 @@
     <!-- 查询商家待处理订单 -->
     <select id="orderManagement" parameterType="java.lang.String" resultType="java.util.Map">
         SELECT
+          o.orderId,
           u.userNickname,
-          CASE o.orderStatus
-               WHEN 0 THEN '待发货'
-               WHEN 1 THEN '已发货'
-               END AS orderStatus,
+          s.shopName,
+          i.goodsImg,
+          o.orderStatus,
           group_concat(i.goodsName) AS goodsName,
           group_concat(i.goodsPrice) AS goodsPrice,
           group_concat(i.goodsQuantity) AS goodsQuantity,
@@ -96,6 +111,7 @@
         ON o.orderId = i.orderId
         LEFT JOIN user u
         ON o.userId = u.userId
+        LEFT JOIN shop s on i.shopId = s.shopId
         WHERE i.shopId = #{shopId}
         AND o.orderStatus = 0
         GROUP BY o.orderId
@@ -113,10 +129,8 @@
     <select id="showShopOrder" parameterType="java.lang.String" resultType="java.util.Map">
         SELECT
           u.userNickname,
-          CASE o.orderStatus
-               WHEN 0 THEN '待发货'
-               WHEN 1 THEN '已发货'
-               END AS orderStatus,
+          i.goodsImg,
+          o.orderStatus,
           group_concat(i.goodsName) AS goodsName,
           group_concat(i.goodsPrice) AS goodsPrice,
           group_concat(i.goodsQuantity) AS goodsQuantity,

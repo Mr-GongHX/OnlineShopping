@@ -65,8 +65,7 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setGoodsUploadTime(sdf.format(currentTime));
         goods.setGoodsModifyTime(sdf.format(currentTime));
 //      将商品参数保存早到数据库中
-        int result = goodsDao.insertGoodsInfo(goods);
-        System.out.println("成功插入" + result + "条数据");
+        goodsDao.insertGoodsInfo(goods);
 //      获取刚才插入到数据库中的goodsId
         return goods.getGoodsId();
     }
@@ -358,6 +357,16 @@ public class GoodsServiceImpl implements GoodsService {
         } else {
             return "参数错误";
         }
+    }
+
+    /**
+     * 根据商品id查找商品库存
+     * @param goodsId
+     * @return
+     */
+    @Override
+    public int showGoodsQuantity(String goodsId) {
+        return goodsDao.showGoodsQuantity(goodsId);
     }
 
 

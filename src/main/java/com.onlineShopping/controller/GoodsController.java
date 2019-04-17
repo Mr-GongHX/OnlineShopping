@@ -196,5 +196,17 @@ public class GoodsController {
         return goodsService.operateGoods(request, operateType, goodsId);
     }
 
+    /**
+     * 根据商品id查找商品库存
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/showGoodsQuantity-{goodsId}")
+    public int showGoodsQuantity(Model model, @PathVariable String goodsId) {
+        model.addAttribute("goodsId", goodsId);
+        return goodsService.showGoodsQuantity(goodsId);
+    }
+
 }
 

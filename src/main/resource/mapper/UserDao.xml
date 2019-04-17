@@ -16,6 +16,7 @@
         ON g.shopId = s.shopId
         WHERE g.goodsName LIKE CONCAT(CONCAT('%',#{searchName}),'%')
         AND g.goodsStatus = 1
+        AND g.goodsAmount > 0
     </select>
 
     <!-- 展示手机专区商品 -->
@@ -30,6 +31,7 @@
         ON g.shopId = s.shopId
         WHERE g.typeId = 1
         AND g.goodsStatus = 1
+        AND g.goodsAmount > 0
         ORDER BY g.goodsUploadTime DESC
     </select>
 
@@ -45,6 +47,7 @@
         ON g.shopId = s.shopId
         WHERE g.typeId = 0
         AND g.goodsStatus = 1
+        AND g.goodsAmount > 0
         ORDER BY g.goodsUploadTime DESC
     </select>
 
@@ -60,6 +63,7 @@
         ON g.shopId = s.shopId
         WHERE g.typeId = 2
         AND g.goodsStatus = 1
+        AND g.goodsAmount > 0
         ORDER BY g.goodsUploadTime DESC
     </select>
 
@@ -68,6 +72,7 @@
         SELECT *
         FROM goods g
         WHERE g.goodsStatus = 1
+        AND g.goodsAmount > 0
         ORDER BY goodsPrice ASC
     </select>
 
@@ -76,6 +81,7 @@
         SELECT *
         FROM goods g
         WHERE g.goodsStatus = 1
+        AND g.goodsAmount > 0
         ORDER BY goodsUploadTime DESC
     </select>
 
@@ -182,6 +188,13 @@
         FROM user
         WHERE userId = #{userId}
     </select>
+
+    <!-- 修改用户余额 -->
+    <update id="updateUserBalance">
+        UPDATE user
+        SET userBalance = userBalance - #{orderPrice}
+        WHERE userId = #{userId}
+    </update>
 
     <!-- 商品评价 -->
     <insert id="goodsComment" parameterType="com.onlineShopping.model.Comment">

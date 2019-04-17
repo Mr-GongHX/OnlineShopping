@@ -10,7 +10,7 @@ function goodsPass(data){
             goodsId: data,
             action: "pass"
         },
-        success: function (res) {
+        success: function () {
             window.location.reload();
         }
     });
@@ -28,7 +28,7 @@ function goodsRefuse(data) {
             goodsId: data,
             action: "refuse"
         },
-        success: function (res) {
+        success: function () {
             window.location.reload();
         }
     });

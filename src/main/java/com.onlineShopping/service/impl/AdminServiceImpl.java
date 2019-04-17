@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 管理员实现类
+ * 管理员业务逻辑
  * @Author Gong HaoXin
  * @Date 2019-02-12 19:16:40
  */

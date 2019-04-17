@@ -44,12 +44,6 @@
     <bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/view/ftl"></property>
-        <!--<property name="templateLoaderPaths">-->
-            <!--<list>-->
-                <!--<value>/view/ftl</value>-->
-                <!--<value>/view/ftl/pc</value>-->
-            <!--</list>-->
-        <!--</property>-->
         <!-- 设置页面中文乱码问题 -->
         <property name="freemarkerSettings">
             <props>
@@ -66,6 +60,4 @@
             </props>
         </property>
     </bean>
-
-    <!--<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>-->
 </beans>

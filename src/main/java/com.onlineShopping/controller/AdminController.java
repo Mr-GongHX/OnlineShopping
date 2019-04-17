@@ -1,25 +1,14 @@
 package com.onlineShopping.controller;
 
 import com.onlineShopping.service.AdminService;
-import com.onlineShopping.service.BusinessService;
-import com.onlineShopping.service.UserService;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.Template;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
-
 import javax.annotation.Resource;
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +34,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping("/adminLogin")
     public String adminLogin(HttpServletRequest request, HttpServletResponse response){
+//        System.out.println("进入");
         String username = request.getParameter("username");
         String password =  request.getParameter("password");
         if(adminService.checkAdminLogin(username, password)) {

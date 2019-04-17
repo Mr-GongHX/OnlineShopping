@@ -15,6 +15,9 @@ public interface OrderDao {
 //  创建订单
     int createOrder(Order order);
 
+//  创建订单明细表
+    int createOrderInfo(Order order);
+
 //  查询用户订单
     List<Map<String, Object>> showMyOrder(String userId);
 

@@ -32,12 +32,8 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping("/createOrder")
-    public boolean createOrder(HttpServletRequest request, @RequestParam List<String> cartItems) {
-        if(orderService.createOrder(request, cartItems) == 1) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean createOrder(HttpServletRequest request) {
+        return orderService.createOrder(request);
     }
 
     /**

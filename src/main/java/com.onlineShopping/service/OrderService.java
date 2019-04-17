@@ -15,7 +15,7 @@ import java.util.Map;
 public interface OrderService {
 
 //  创建订单
-    int createOrder(HttpServletRequest request, @RequestParam List<String> cartItems);
+    boolean createOrder(HttpServletRequest request);
 
 //  查询用户订单
     List<Map<String, Object>> showMyOrder(String userId);

@@ -58,6 +58,9 @@ public interface UserDao {
 //  根据用户id返回用户信息
     Map<String, Object> userInfo(int userId);
 
+//  修改用户余额
+    int updateUserBalance(@Param("userId") String userId, @Param("orderPrice") Double orderPrice);
+
 //  商品评价
     int goodsComment(Comment comment);
 }

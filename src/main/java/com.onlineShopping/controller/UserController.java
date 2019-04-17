@@ -206,7 +206,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/userLogout")
-    public boolean shopAdminLogout(HttpServletRequest request){
+    public boolean userLogout(HttpServletRequest request){
         return userService.userLogout(request);
     }
 

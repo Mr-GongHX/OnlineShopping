@@ -22,8 +22,8 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * @Description: 商家实现类
- * @Author: Gong Haoxin
+ * @Description: 商家实业务逻辑
+ * @Author: Gong HaoXin
  * @CreateTime: 2019-01-12 19:25:50
  **/
 @Service("businessService")

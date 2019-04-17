@@ -38,4 +38,7 @@ public interface GoodsService {
 //  根据操作类型修改商品
     String operateGoods(HttpServletRequest request, String operateType, String goodsId);
 
+//  根据商品id查找商品库存
+    int showGoodsQuantity(String goodsId);
+
 }

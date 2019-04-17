@@ -30,4 +30,7 @@ public interface BusinessDao {
 
 //  根据商家id返回商家信息
     Map<String, Object> shopInfo(Integer shopId);
+
+//  修改商家余额
+    int updateShopBalance(@Param("shopId") Integer shopId, @Param("goodsPrice") Double goodsPrice);
 }

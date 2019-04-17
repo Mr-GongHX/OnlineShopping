@@ -14,6 +14,7 @@ public class Order {
     private String goodsQuantity;
     private Double goodsPrice;
     private String goodsName;
+    private String goodsImg;
     private String consigneeName;
     private String consigneeAddress;
     private String consigneePhone;
@@ -76,6 +77,14 @@ public class Order {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public String getGoodsImg() {
+        return goodsImg;
+    }
+
+    public void setGoodsImg(String goodsImg) {
+        this.goodsImg = goodsImg;
     }
 
     public String getConsigneeName() {

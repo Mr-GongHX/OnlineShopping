@@ -98,4 +98,18 @@ public interface GoodsDao {
      */
     int deleteGoodsByGoodsId(@Param("goodsModifyTime") String goodsModifyTime, @Param("goodsId") String goodsId);
 
+    /**
+     * 根据商品id查找商品库存
+     * @param goodsId
+     * @return
+     */
+    int showGoodsQuantity(String goodsId);
+
+    /**
+     * 根据商品id以及购买数量，修改商品库存
+     * @param goodsId
+     * @param goodsQuantity
+     * @return
+     */
+    int updateGoodsAmount(@Param("goodsId") String goodsId, @Param("goodsQuantity") Integer goodsQuantity);
 }

@@ -60,4 +60,11 @@
         FROM shop
         WHERE shopId = #{shopId}
     </select>
+
+    <!-- 修改商家余额 -->
+    <update id="updateShopBalance">
+        UPDATE shop
+        SET shopBalance = shopBalance + #{goodsPrice}
+        WHERE shopId = #{shopId}
+    </update>
 </mapper>
